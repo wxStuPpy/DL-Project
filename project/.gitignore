@@ -1,6 +1,22 @@
-.json
-.jpg
-.tar
-.npz
-.pt
-./idea
+# 忽略 IDE 配置目录（如 PyCharm 的 .idea）
+.idea/
+
+# 忽略 JSON 数据集文件（匹配所有 .json，或指定路径）
+# 若只想忽略 EmoSet-118k 下的 json：
+project/MAJoR/Datasets/EmoSet-118k/*.json
+# 若想忽略所有 json（谨慎，若有代码中的配置 json 需保留）：
+# *.json
+
+# 忽略模型权重和检查点文件
+*.pt
+*.pth.tar
+*.npz  # 对应 train_test_data.npz
+
+# 忽略 Python 缓存目录
+__pycache__/
+# 忽略所有目录下的 __pycache__
+**/__pycache__/
+
+# 忽略 README.md 的修改（如果不需要追踪文档变动）
+project/MAJoR/EmoSet/README.md
+project/MAJoR/EmoSet-check/README.md

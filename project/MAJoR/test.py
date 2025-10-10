@@ -42,6 +42,13 @@ class MultiTaskModel(nn.Module):
     def __init__(self, num_aux1_classes, num_aux2_classes):
         super(MultiTaskModel, self).__init__()
         model = timm.create_model('mobilenetv2_100', pretrained=False)
+        # 加载本地预训练权重
+        checkpoint_path = './checkpoint/new_mv2-2.pth'
+        print(f"Loading MobileNetV2 weights from {checkpoint_path}")
+        state_dict = torch.load(checkpoint_path, map_location='cuda')
+
+        model.load_state_dict(state_dict)
+        print("MobileNetV2 weights loaded successfully")
 
         self.feature_extractor = nn.Sequential(*list(model.children())[:-1])
 

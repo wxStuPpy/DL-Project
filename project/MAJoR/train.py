@@ -37,11 +37,11 @@ class MultiTaskModel(nn.Module):
         super(MultiTaskModel, self).__init__()
         model = timm.create_model('mobilenetv2_100', pretrained=False)
          # 加载本地预训练权重
-        # checkpoint_path = './checkpoint/new_mv2-2.pth'
-        # print(f"Loading MobileNetV2 weights from {checkpoint_path}")
-        # state_dict = torch.load(checkpoint_path, map_location='cuda')
-        # model.load_state_dict(state_dict)
-        # print("MobileNetV2 weights loaded successfully")
+        checkpoint_path = './checkpoint/new_mv2-2.pth'
+        print(f"Loading MobileNetV2 weights from {checkpoint_path}")
+        state_dict = torch.load(checkpoint_path, map_location='cuda')
+        model.load_state_dict(state_dict)
+        print("MobileNetV2 weights loaded successfully")
 
         self.feature_extractor = nn.Sequential(*list(model.children())[:-1])
 
@@ -281,8 +281,11 @@ def main(lr=0.001,gpus=1):
     Attribute_model = MultiTaskModel(11,11)
     Attribute_model = Attribute_model.to(device)
 
-    clip_model, preprocess = clip.load("ViT-B/16", device=device)
+    clip_model, preprocess = clip.load("./checkpoint/Emoset_3.0/ViT-B-16.pt", device=device)
     clip_model.to(device)
+
+    # 直接打印加载成功信息，包含模型类型和设备
+    print(f"CLIP 模型 (ViT-B-16) 已成功加载并移至设备: {device}")
 
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(net.parameters(), lr=lr,
@@ -320,8 +323,8 @@ def main(lr=0.001,gpus=1):
     testset = EmotionDataset(data_path='Datasets/EmoSet-118k/test.json', train=False,
                              transform=transform_test)
 
-    train_num = 200  # 训练集取200张
-    test_num = 200  # 测试集取50张
+    train_num = 100  # 训练集取200张
+    test_num = 100  # 测试集取200张
 
     # 防止数据量不足
     train_num = min(train_num, len(trainset))

@@ -12,7 +12,9 @@ project/MAJoR/Datasets/EmoSet-118k/*.json
 *.pth.tar
 *.npz  # 对应 train_test_data.npz
 *.pth
+#图片文件
 *.jpg
+*.png
 
 # 忽略 Python 缓存目录
 __pycache__/

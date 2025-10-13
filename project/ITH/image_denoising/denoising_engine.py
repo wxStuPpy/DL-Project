@@ -1,4 +1,4 @@
-__all__ = ['train_step']
+__all__ = ['train_step','test_step']
 
 import torch
 

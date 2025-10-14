@@ -60,7 +60,8 @@ if __name__ == '__main__':
     )
 
     # 3️⃣ 模型与优化器
-    denoiser = ConvDenoiser().to(device)
+    denoiser = ConvDenoiser()
+    denoiser.to(device)
     loss = nn.MSELoss()
     optimizer = optim.Adam(denoiser.parameters(), lr=LEARNING_RATE)
     print(f"✅ 模型加载完成，学习率: {LEARNING_RATE}")
